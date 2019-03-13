@@ -1,0 +1,62 @@
+
+language: java
+
+script: 
+  -cd /home/travis/build/mmuir-accenture/travisToy/Java/TirePressureMonitorySystem
+  -mvn test -B
+
+
+# tell Travis what language your code is in
+#language: java
+# The actual commands keyed into the terminal in the Travis virtual environment
+# These should be the same commands you would type in to build your code locally
+#script:
+  # gradle commands will not run unless in the same directory as the solution
+ # - cd /home/travis/build/jmacgregor-accenture/loopingKatasHome/java/
+ # - ./gradlew assemble
+ # - ./gradlew check
+ # - gradle test
+
+# Prevents dependency caching from uploading with each build
+#before_cache:
+ # - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+ # - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+#cache:
+ # directories:
+  #  - $HOME/.gradle/caches/
+   # - $HOME/.gradle/wrapper/
+
+# Optional. If you only want to build against master, you don't need anything
+# If you want to build more than one, or only certain branches, you'll need to configure
+#branches: 
+#  only:
+#  - master
+#  - development
+
+# tell Travis what language your code is in
+#language: csharp
+# Mono is the framework used to translate dotnet into non-windows environments
+# if using dotnet Core (cross platform), no mono is needed
+#mono: none
+# Needed to allow commands to run as the administrative user in the travis virtual environment
+#sudo: required
+# The version of Ubuntu Linux the virtual environment runs on
+# Default is Trusty (if left blank)
+# xenial required for dotnet Core 2.2+
+#dist: xenial
+# Define the SDK version of dotnet Core (not the runtime version)
+#dotnet: 2.2
+# The actual commands keyed into the terminal in the Travis virtual environment
+# These should be the same commands you would type in to build your code locally
+#script:
+  # dotnet commands will not run unless in the same directory as the solution
+  #- cd /home/travis/build/jmacgregor-accenture/loopingKatasHome/dotnetcore/
+  #- dotnet restore
+  #- dotnet build
+
+# Optional. If you only want to build against master, you don't need anything
+# If you want to build more than one, or only certain branches, you'll need to configure
+#branches: 
+#  only:
+#  - master
+#  - development
