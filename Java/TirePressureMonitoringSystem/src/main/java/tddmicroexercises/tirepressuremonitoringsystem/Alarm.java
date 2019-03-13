@@ -4,10 +4,17 @@ public class Alarm
 {
     private final double LOW_PRESSURE_THRESHOLD = 17;
     private final double HIGH_PRESSURE_THRESHOLD = 21;
-
-    ISensor sensor = new Sensor();
+    ISensor sensor;
 
     private boolean alarmOn = false;
+
+    public Alarm(){
+        this.sensor = new Sensor();
+    }
+
+    public Alarm(ISensor injectedSensor){
+        this.sensor = injectedSensor;
+    }
 
     public void check()
     {
@@ -24,7 +31,4 @@ public class Alarm
         return alarmOn; 
     }
 
-    public void setSensor(ISensor injectedSensor) {
-        sensor = injectedSensor;
-    }
 }

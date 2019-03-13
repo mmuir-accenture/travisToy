@@ -12,33 +12,24 @@ import static org.junit.Assert.*;
 
 public class TestAlarm {
 
-    Random random = new Random();
-    private final double LowPressureThreshold = 17;
-    private final double HighPressureThreshold = 21;
-    ISensor mockSensor;
-    Alarm alarm;
+    private final double LOW_PRESSURE_THRESHOLD = 17;
+    private final double HIGH_PRESSURE_THRESHOLD = 21;
+    private Alarm alarm;
 
-    @Before
-    public void setUp() throws Exception {
-        double psi = random.nextDouble()*22;
-        mockSensor = generateISensor(psi);
-        alarm = new Alarm();
-        alarm.setSensor(mockSensor);
-    }
 
 
 
 
     @Test
     public void WhenInstantiatingIsNotNull() {
-
+        alarm = new Alarm();
         assertNotNull(alarm);
     }
 
     @Test
     public void WhenCheckingLowPressureAlarmSounds() {
         ISensor mockSensor = generateISensor(5);
-        alarm.setSensor(mockSensor);
+        alarm = new Alarm(mockSensor);
 
         alarm.check();
 
@@ -48,7 +39,7 @@ public class TestAlarm {
     @Test
     public void WhenCheckingHighPressureAlarmSounds() {
         ISensor mockSensor = generateISensor(22);
-        alarm.setSensor(mockSensor);
+        alarm = new Alarm(mockSensor);
 
         alarm.check();
 
@@ -58,7 +49,7 @@ public class TestAlarm {
     @Test
     public void WhenCheckingNormalPressureNoAlarm() {
         ISensor mockSensor = generateISensor(17);
-        alarm.setSensor(mockSensor);
+        alarm = new Alarm(mockSensor);
 
         alarm.check();
 
@@ -67,9 +58,13 @@ public class TestAlarm {
 
     @Test
     public void WhenCheckingRandomPressureAlarmRespondsCorrectly(){
+        Random random = new Random();
+        double psi = random.nextDouble()*22;
+        ISensor mockSensor = generateISensor(psi);
+        alarm = new Alarm(mockSensor);
         String sensorType = mockSensor.getClass().toString();
 
-        alarm.setSensor(mockSensor);
+        alarm = new Alarm(mockSensor);
 
         alarm.check();
 
@@ -90,9 +85,9 @@ public class TestAlarm {
     }
 
     private ISensor generateISensor(double psi){
-        if(psi < LowPressureThreshold){
+        if(psi < LOW_PRESSURE_THRESHOLD){
             return new LowPressureSensor();
-        } else if (psi > HighPressureThreshold){
+        } else if (psi > HIGH_PRESSURE_THRESHOLD){
             return new HighPressureSensor();
         }
         return new NormalPressureSensor();
