@@ -10,20 +10,23 @@ public class HtmlPagesConverter {
 
     private String filename;
     private List<Integer> breaks = new ArrayList<Integer>();
+    private BufferedReader reader;
     
-    public HtmlPagesConverter(String filename) throws IOException {
+    HtmlPagesConverter(String filename) throws IOException {
         this.filename = filename;
-
         this.breaks.add(0);
-        BufferedReader reader = new BufferedReader(new FileReader(this.filename));
+
+    }
+
+    private void dividePage() throws IOException {
+        reader = new BufferedReader(new FileReader(this.filename));
         int cumulativeCharCount = 0;
         String line = reader.readLine();
         while (line != null)
         {
             cumulativeCharCount += line.length() + 1; // add one for the newline
             if (line.contains("PAGE_BREAK")) {
-                int page_break_position = cumulativeCharCount;
-                breaks.add(page_break_position);
+                breaks.add(cumulativeCharCount);
             }
             line = reader.readLine();
         }
@@ -31,7 +34,7 @@ public class HtmlPagesConverter {
     }
 
     public String getHtmlPage(int page) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(this.filename));
+        reader = new BufferedReader(new FileReader(this.filename));
         reader.skip(breaks.get(page));
         StringBuffer htmlPage = new StringBuffer();
         String line = reader.readLine();
@@ -49,7 +52,7 @@ public class HtmlPagesConverter {
         return htmlPage.toString();
     }
 
-    public String getFilename() {
+    String getFilename() {
         return this.filename;
     }
     
