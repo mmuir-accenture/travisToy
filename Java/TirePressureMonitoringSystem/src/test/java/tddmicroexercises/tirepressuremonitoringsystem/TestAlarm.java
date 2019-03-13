@@ -7,8 +7,9 @@ import static org.junit.Assert.*;
 public class TestAlarm {
 
     @Test
-    public void foo() {
-        Alarm alarm = new Alarm();
-        assertEquals(false, alarm.isAlarmOn());
+    public void WhenInstantiatingIsNotNull() {
+        ISensor mockSensor = new Sensor();
+        Alarm alarm = new Alarm(mockSensor);
+        assertNotNull(alarm);
     }
 }
