@@ -16,11 +16,14 @@ public class TestAlarm {
     private final double LowPressureThreshold = 17;
     private final double HighPressureThreshold = 21;
     ISensor mockSensor;
+    Alarm alarm;
 
     @Before
     public void setUp() throws Exception {
         double psi = random.nextDouble()*22;
         mockSensor = generateISensor(psi);
+        alarm = new Alarm();
+        alarm.setSensor(mockSensor);
     }
 
 
@@ -28,8 +31,6 @@ public class TestAlarm {
 
     @Test
     public void WhenInstantiatingIsNotNull() {
-        ISensor mockSensor = new Sensor();
-        Alarm alarm = new Alarm(mockSensor);
 
         assertNotNull(alarm);
     }
@@ -37,7 +38,7 @@ public class TestAlarm {
     @Test
     public void WhenCheckingLowPressureAlarmSounds() {
         ISensor mockSensor = generateISensor(5);
-        Alarm alarm = new Alarm(mockSensor);
+        alarm.setSensor(mockSensor);
 
         alarm.check();
 
@@ -47,7 +48,7 @@ public class TestAlarm {
     @Test
     public void WhenCheckingHighPressureAlarmSounds() {
         ISensor mockSensor = generateISensor(22);
-        Alarm alarm = new Alarm(mockSensor);
+        alarm.setSensor(mockSensor);
 
         alarm.check();
 
@@ -57,7 +58,7 @@ public class TestAlarm {
     @Test
     public void WhenCheckingNormalPressureNoAlarm() {
         ISensor mockSensor = generateISensor(17);
-        Alarm alarm = new Alarm(mockSensor);
+        alarm.setSensor(mockSensor);
 
         alarm.check();
 
@@ -68,20 +69,24 @@ public class TestAlarm {
     public void WhenCheckingRandomPressureAlarmRespondsCorrectly(){
         String sensorType = mockSensor.getClass().toString();
 
-        Alarm alarm = new Alarm(mockSensor);
+        alarm.setSensor(mockSensor);
 
         alarm.check();
 
+        makeAssertion(sensorType, alarm.isAlarmOn());
+
+    }
+
+    private void makeAssertion(String sensorType, boolean alarmCheck) {
         switch(sensorType.toCharArray()[0]){
             case 'N':
-                assertFalse(alarm.isAlarmOn());
+                assertFalse(alarmCheck);
                 break;
             case 'L':
             case 'H':
-                assertTrue(alarm.isAlarmOn());
+                assertTrue(alarmCheck);
 
         }
-
     }
 
     private ISensor generateISensor(double psi){
