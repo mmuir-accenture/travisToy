@@ -2,7 +2,7 @@
 language: java
 
 script: 
-  -cd /home/travis/build/mmuir-accenture/travisToy/Java/TirePressureMonitorySystem
+  -cd /home/travis/build/mmuir-accenture/travisToy/Java/TirePressureMonitoringSystem
   -mvn test -B
 
 
