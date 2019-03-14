@@ -4,6 +4,8 @@ language: java
 script: 
   - cd /home/travis/build/mmuir-accenture/travisToy/Java/TirePressureMonitoringSystem
   - mvn test -B
+  - cd ../TextConverter
+  - mvn test -B
 
 
 # tell Travis what language your code is in
