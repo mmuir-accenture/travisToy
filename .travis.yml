@@ -6,6 +6,8 @@ script:
   - mvn test -B
   - cd ../TextConverter
   - mvn test -B
+  - cd ../TurnTicketDispenser
+  - mvn test -B
 
 
 # tell Travis what language your code is in
