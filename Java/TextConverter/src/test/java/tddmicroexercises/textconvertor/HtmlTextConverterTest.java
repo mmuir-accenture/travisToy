@@ -32,7 +32,17 @@ public class HtmlTextConverterTest {
         assertEquals(expectedHtml, result);
     }
 
+    @Test
+    public void WhenConvertingUnicodeTextWithMixedInSymbolsReturnsHtml() throws Exception {
+        BufferedReader bufferedReaderMock = mock(BufferedReader.class);
+        HtmlTextConverter converter = new HtmlTextConverter("foo", bufferedReaderMock);
+        when(bufferedReaderMock.readLine()).thenReturn("They say some are < & some are > but we say \"No more, y'all\"").thenReturn(null);
+        String expectedHTML = "They say some are &lt; &amp; some are &gt; but we say &quot;No more, y&quot;all&quot;<br />";
 
+        String result = converter.convertToHtml();
+
+        assertEquals(expectedHTML, result);
+    }
 }
 
 
