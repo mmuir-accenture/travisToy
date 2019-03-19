@@ -4,6 +4,10 @@ public class TurnNumberSequence
 {
     private static int _turnNumber = 0;
 
+    public static void resetCounter(){
+        _turnNumber = 0;
+    }
+
     public static int getNextTurnNumber()
     {
         return _turnNumber++;
